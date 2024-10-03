@@ -8,11 +8,14 @@ use Illuminate\Console\Command;
 
 class NoteCommand extends Command
 {
+    // La firma del comando, que incluye el nombre del comando 'note' y sus argumentos y opciones
     protected $signature = 'note {action} {--id=} {--title=} {--description=} {--due_date=}  {--tags=} {--userId=}';
     protected $description = 'Gestión de notas A traves de artisan';
 
+    // El método principal que se ejecuta cuando se llama al comando
     public function handle()
-    {
+    {   
+        // Obtiene el argumento 'action' (crear, actualizar, listar o eliminar)
         $action = $this->argument('action');
 
         switch ($action) {
@@ -34,7 +37,8 @@ class NoteCommand extends Command
     }
 
     protected function createNote()
-    {
+    {   
+         // Crea la nota con los datos recibidos desde las opciones del comando
         $note = Note::create([
             'title' => $this->option('title'),
             'description' => $this->option('description'),
@@ -43,9 +47,15 @@ class NoteCommand extends Command
             'tags' => $this->option('tags') ? $this->option('tags') : null,
         ]);
 
+         // Si se han pasado etiquetas, las sincroniza con la nota
+        if ($this->option('tags')) {
+            $note->tags()->sync($this->option('tags'));
+        }
+
         $this->info('Nota creada: ' . $note->title);
     }
 
+    // Método para actualizar una nota existente
     protected function updateNote()
     {
         $note = Note::find($this->option('id'));
@@ -59,9 +69,9 @@ class NoteCommand extends Command
             'title' => $this->option('title') ?? $note->title,
             'description' => $this->option('description') ?? $note->description,
             'due_date' => $this->option('due_date') ?? $note->due_date,
-            'tags' => $this->option('tags') ? json_decode($this->option('tags')) : $note->tags,
+            'tags' => $this->option('tags') ? $this->option('tags') : $note->tags,
         ]);
-
+        $note->tags()->sync($this->option('tags'));
         $this->info('Nota actualizada: ' . $note->title);
     }
 
@@ -79,6 +89,7 @@ class NoteCommand extends Command
         }
     }
 
+    // Método para eliminar una nota existente
     protected function deleteNote()
     {
         $note = Note::find($this->option('id'));

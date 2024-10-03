@@ -19,7 +19,7 @@ class NoteController extends Controller
         return Note::with('tags')
             ->where('user_id', auth()->id())
             ->orderBy('created_at', 'desc')->get();
-    }
+    } 
 
     public function store(Request $request)
     {
@@ -49,7 +49,7 @@ class NoteController extends Controller
         
         return response()->json($note, 201);
     }
-
+    //metodo para actualizar nota
     public function update(Request $request, Note $note)
     {
         $request->validate([
@@ -61,13 +61,14 @@ class NoteController extends Controller
         $note->tags()->sync($request->get('tags'));
         return $note;
     }
-
+    //metodo para obtener los datos de una nota para poder actualizarla
     public function edit($id)
     {
         $note = Note::findOrFail($id);
         return response()->json($note);
     }
 
+    //metodo para eliminar na nota
     public function destroy(Note $note)
     {
         $note->delete();

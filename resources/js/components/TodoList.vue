@@ -128,7 +128,7 @@ export default {
       try {
         const newNoteData = {
           ...this.newNote,
-          tags: this.selectedTags, // Añadir los tags seleccionados
+          tags: this.selectedTags, // Añadir tags seleccionados
         };
         await axios.post("/api/notes", newNoteData);
         this.newNote = {
@@ -137,8 +137,8 @@ export default {
           due_date: "",
         };
         Swal.fire("Nota creada!", "", "success");
-        this.selectedTags = []; // Limpiar los tags seleccionados
-        this.fetchNotes(); // Recargar la lista de notas
+        this.selectedTags = []; // Limpiar tags seleccionados
+        this.fetchNotes(); // Recargar las notas
       } catch (error) {
         console.error("Error", error);
       }
@@ -146,7 +146,7 @@ export default {
     async deleteNote(noteId) {
       try {
         await axios.delete(`/api/notes/${noteId}`);
-        this.fetchNotes(); // Recargar la lista de notas
+        this.fetchNotes(); // Recargar las notas
         Swal.fire("Nota eliminada!", "", "error");
       } catch (error) {
         console.error("Error", error);

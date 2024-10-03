@@ -103,7 +103,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
             case 0:
               _context3.prev = 0;
               newNoteData = _objectSpread(_objectSpread({}, _this3.newNote), {}, {
-                tags: _this3.selectedTags // Añadir los tags seleccionados
+                tags: _this3.selectedTags // Añadir tags seleccionados
               });
               _context3.next = 4;
               return axios.post("/api/notes", newNoteData);
@@ -114,8 +114,8 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
                 due_date: ""
               };
               Swal.fire("Nota creada!", "", "success");
-              _this3.selectedTags = []; // Limpiar los tags seleccionados
-              _this3.fetchNotes(); // Recargar la lista de notas
+              _this3.selectedTags = []; // Limpiar tags seleccionados
+              _this3.fetchNotes(); // Recargar las notas
               _context3.next = 13;
               break;
             case 10:
@@ -139,7 +139,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
               _context4.next = 3;
               return axios["delete"]("/api/notes/".concat(noteId));
             case 3:
-              _this4.fetchNotes(); // Recargar la lista de notas
+              _this4.fetchNotes(); // Recargar las notas
               Swal.fire("Nota eliminada!", "", "error");
               _context4.next = 10;
               break;

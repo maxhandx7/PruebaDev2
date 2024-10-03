@@ -2175,20 +2175,22 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
   data: function data() {
     return {
       user: null,
-      isAuthenticated: false // Estado de autenticación
+      // Almacena los datos del usuario autenticado
+      isAuthenticated: false // Estado de autenticación del usuario
     };
   },
+  // Este método se ejecuta cuando el componente se monta
   mounted: function mounted() {
-    // Comprobar si el usuario está autenticado al cargar el componente
-    this.checkAuth();
-    this.fetchUser();
+    this.checkAuth(); // Verifica si el usuario está autenticado
+    this.fetchUser(); // Obtiene los datos del usuario si está autenticado
   },
   methods: {
+    // Método para verificar si el usuario está autenticado
     checkAuth: function checkAuth() {
-      // Verificar si el token de autenticación existe  en localStorage
-      var token = localStorage.getItem("token");
-      this.isAuthenticated = !!token; // Autenticado si hay un token
+      var token = localStorage.getItem("token"); // Busca el token en localStorage
+      this.isAuthenticated = !!token; // Si hay token, el usuario está autenticado
     },
+    // Método para obtener los datos del usuario autenticado
     fetchUser: function fetchUser() {
       var _this = this;
       return _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -2205,20 +2207,21 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
               _context.next = 5;
               return axios.get("/api/user", {
                 headers: {
-                  Authorization: "Bearer ".concat(token)
+                  Authorization: "Bearer ".concat(token) // Envía el token en los headers
                 }
               });
             case 5:
               response = _context.sent;
-              _this.user = response.data;
+              _this.user = response.data; // Almacena los datos del usuario
             case 7:
               _context.next = 13;
               break;
             case 9:
               _context.prev = 9;
               _context.t0 = _context["catch"](0);
+              // En caso de error, muestra un mensaje en la consola
               console.error("Error al obtener el usuario:", _context.t0);
-              _this.user = null;
+              _this.user = null; // Si hay error, establece 'user' como null
             case 13:
             case "end":
               return _context.stop();
@@ -2226,14 +2229,15 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
         }, _callee, null, [[0, 9]]);
       }))();
     },
+    // Actualiza el estado del usuario autenticado
     updateUserState: function updateUserState() {
-      this.checkAuth();
+      this.checkAuth(); // Vuelve a verificar si el usuario está autenticado
     },
+    // Método para cerrar sesión
     logout: function logout() {
-      // Acción de cierre de sesión
-      localStorage.removeItem("token");
-      this.isAuthenticated = false;
-      this.$router.push("/");
+      localStorage.removeItem("token"); // Elimina el token del almacenamiento local
+      this.isAuthenticated = false; // Cambia el estado a no autenticado
+      this.$router.push("/"); // Redirige al usuario a la página de inicio
     }
   }
 });
@@ -2307,7 +2311,7 @@ var render = function render() {
     staticClass: "nav-item"
   }, [_vm.user ? _c("h4", {
     staticClass: "nav-link text-light"
-  }, [_vm._v("\n              " + _vm._s(_vm.user.name) + " \n            ")]) : _vm._e()]) : _vm._e()]), _vm._v(" "), _c("ul", {
+  }, [_vm._v("\n              " + _vm._s(_vm.user.name) + "\n            ")]) : _vm._e()]) : _vm._e()]), _vm._v(" "), _c("ul", {
     staticClass: "navbar-nav"
   }, [_vm.isAuthenticated ? _c("li", {
     staticClass: "nav-item"
@@ -2363,54 +2367,94 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
+// Carga los archivos de configuración de Bootstrap
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+// Importa Vue
+
+
+// Define Vue globalmente para que esté disponible en todo el archivo
 window.Vue = vue__WEBPACK_IMPORTED_MODULE_0__["default"];
 
+// Importa el componente principal de la aplicación
+
+
+// Importa VueAxios para manejar solicitudes HTTP con Axios
 
 
 
+// Importa VueRouter para manejar el enrutamiento dentro de la aplicación Vue
 
 
+// Importa el método `reactive` de Vue para manejar el estado reactivo
 
+
+// Importa las rutas desde un archivo externo
+
+
+// Carga nuevamente Vue para usar sus plugins
+
+
+// Utiliza VueRouter en la aplicación
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]);
+
+// Integra VueAxios y Axios en Vue
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_axios__WEBPACK_IMPORTED_MODULE_2__["default"], (axios__WEBPACK_IMPORTED_MODULE_3___default()));
+
+// Configuración del enrutador 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]({
   mode: 'history',
-  routes: _routes__WEBPACK_IMPORTED_MODULE_4__.routes
+  // Usa el modo 'history' para eliminar el hash 
+  routes: _routes__WEBPACK_IMPORTED_MODULE_4__.routes // Define las rutas de la aplicación
 });
+
+// Interceptor de solicitudes Axios
+// Este bloque se ejecuta antes de cada solicitud HTTP y añade el token de autorización
 axios__WEBPACK_IMPORTED_MODULE_3___default().interceptors.request.use(function (config) {
-  var token = localStorage.getItem('token');
+  var token = localStorage.getItem('token'); // Obtiene el token del almacenamiento local
   if (token) {
-    config.headers['Authorization'] = "Bearer ".concat(token);
+    config.headers['Authorization'] = "Bearer ".concat(token); // Si existe el token, lo agrega a los encabezados
   }
   return config;
 }, function (error) {
-  return Promise.reject(error);
+  return Promise.reject(error); // Si hay algún error, lo rechaza
 });
+
+// Crea una nueva instancia de Vue
 var app = new vue__WEBPACK_IMPORTED_MODULE_0__["default"]({
   el: '#app',
+  // El componente principal se monta en el elemento con el id 'app'
   router: router,
+  // Se le pasa el enrutador configurado
   render: function render(h) {
     return h(_components_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
-  }
+  } // Renderiza el componente principal App.vue
 });
+
+// Define un middleware global en VueRouter
+// Se ejecuta antes de cada cambio de ruta
 router.beforeEach(function (to, from, next) {
-  var token = localStorage.getItem('token');
+  var token = localStorage.getItem('token'); // Obtiene el token de autenticación
+  // Si la ruta requiere autenticación y no hay token, redirige a la página de login
   if (to.matched.some(function (record) {
     return record.meta.requiresAuth;
   }) && !token) {
     next({
       name: 'Login'
-    });
+    }); // Redirige al login si no está autenticado
   } else {
-    next();
+    next(); // Si está autenticado o la ruta no requiere autenticación, sigue normalmente
   }
 });
+
+// Define un EventBus para manejar el estado reactivo de autenticación y usuario
 var eventBus = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
   isAuthenticated: false,
-  user: null
+  // Estado de si el usuario está autenticado
+  user: null // Información del usuario autenticado
 });
+
+// Exporta el enrutador para que pueda ser utilizado en otras partes del proyecto
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
 
 /***/ }),
@@ -2528,7 +2572,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.navbar-nav .nav-link[data-v-332fccf4] {\r\n  margin-right: 15px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n/* Estilos para los enlaces de la barra de navegación */\n.navbar-nav .nav-link[data-v-332fccf4] {\r\n  margin-right: 15px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

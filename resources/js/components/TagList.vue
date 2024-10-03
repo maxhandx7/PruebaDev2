@@ -92,6 +92,5 @@ export default {
 </script>
   
   <style scoped>
-/* Estilos personalizados si los necesitas */
 </style>
   
