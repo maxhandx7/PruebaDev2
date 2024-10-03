@@ -60,6 +60,7 @@
             <li v-for="note in notes" :key="note.id" class="list-group-item">
               <strong>{{ note.title }}</strong>
               <p>{{ note.description }}</p>
+              <p>Fecha de creación: {{ formatDate(note.created_at) }}</p>
               <p>Fecha de vencimiento: {{ formatDate(note.due_date) }}</p>
               <p>
                 Etiquetas:

@@ -42,7 +42,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
               return axios.post("/oauth/token", {
                 grant_type: "password",
                 client_id: 2,
-                client_secret: "EdpspPDCsqL1umqocsz7i6f622xtdhkFhgY4NXEV",
+                client_secret: "wgdhDNocRTG7SFcbWpbq0p8d9ODGSeSbWwOMVjXT",
                 username: _this.email,
                 password: _this.password,
                 scope: ""

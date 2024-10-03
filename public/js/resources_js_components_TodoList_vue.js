@@ -338,7 +338,7 @@ var render = function render() {
     return _c("li", {
       key: note.id,
       staticClass: "list-group-item"
-    }, [_c("strong", [_vm._v(_vm._s(note.title))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(note.description))]), _vm._v(" "), _c("p", [_vm._v("Fecha de vencimiento: " + _vm._s(_vm.formatDate(note.due_date)))]), _vm._v(" "), _c("p", [_vm._v("\n              Etiquetas:\n              "), _vm._l(note.tags, function (tag) {
+    }, [_c("strong", [_vm._v(_vm._s(note.title))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(note.description))]), _vm._v(" "), _c("p", [_vm._v("Fecha de creación: " + _vm._s(_vm.formatDate(note.created_at)))]), _vm._v(" "), _c("p", [_vm._v("Fecha de vencimiento: " + _vm._s(_vm.formatDate(note.due_date)))]), _vm._v(" "), _c("p", [_vm._v("\n              Etiquetas:\n              "), _vm._l(note.tags, function (tag) {
       return _c("span", {
         key: tag.id
       }, [_vm._v("\n                " + _vm._s(tag.name) + "\n              ")]);
