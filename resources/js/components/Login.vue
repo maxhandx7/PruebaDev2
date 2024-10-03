@@ -98,7 +98,7 @@ export default {
         const response = await axios.post("/oauth/token", {
           grant_type: "password",
           client_id: 2,
-          client_secret: "wgdhDNocRTG7SFcbWpbq0p8d9ODGSeSbWwOMVjXT",
+          client_secret: "EdpspPDCsqL1umqocsz7i6f622xtdhkFhgY4NXEV",
           username: this.email,
           password: this.password,
           scope: "",
